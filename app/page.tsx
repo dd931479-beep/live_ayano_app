@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isCounting, setIsCounting] = useState(false);
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(5);  // カウントダウン時間
   const [isMuted, setIsMuted] = useState(true);
   const [isReady, setIsReady] = useState(false);
 
@@ -17,6 +17,12 @@ export default function Home() {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
     }
+  };
+
+    const handlePlay = () => {
+    setTimeout(() => {
+      setIsCounting(true);
+    }, 3000); // 動画再生から3秒を監視
   };
 
   // 動画の再生位置を監視
@@ -53,6 +59,7 @@ export default function Home() {
         muted
         playsInline
         loop
+        onPlay={handlePlay} // 再生開始イベントをトリガーにする
         style={{ 
           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
           objectFit: 'cover', zIndex: 1, opacity: isReady ? 0.6 : 1, transition: 'opacity 0.5s'
