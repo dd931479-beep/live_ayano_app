@@ -5,11 +5,10 @@ import { useState, useEffect, useRef } from "react";
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isCounting, setIsCounting] = useState(false);
-  const [seconds, setSeconds] = useState(5);  // カウントダウン時間
+  const [seconds, setSeconds] = useState(5); // カウントダウンは5秒
   const [isMuted, setIsMuted] = useState(true);
   const [isReady, setIsReady] = useState(false);
 
-  // 遷移先URLを一括管理
   const REDIRECT_URL = "https://ad-nex.com/u/aib9p79jb5g5";
 
   const toggleMute = () => {
@@ -19,22 +18,12 @@ export default function Home() {
     }
   };
 
-    const handlePlay = () => {
+  // 動画が再生開始されたら3秒タイマーをスタート
+  const handlePlay = () => {
     setTimeout(() => {
       setIsCounting(true);
-    }, 3000); // 動画再生から3秒を監視
+    }, 3000); // 「3秒後」を指定
   };
-
-  // 動画の再生位置を監視
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const handleTimeUpdate = () => {
-      if (video.currentTime >= 3 && !isCounting) setIsCounting(true);
-    };
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, [isCounting]);
 
   // カウントダウンと自動遷移
   useEffect(() => {
@@ -45,7 +34,7 @@ export default function Home() {
     } else {
       setIsReady(true);
       videoRef.current?.pause();
-      window.location.href = REDIRECT_URL; // 自動遷移
+      window.location.href = REDIRECT_URL;
     }
   }, [isCounting, seconds]);
 
