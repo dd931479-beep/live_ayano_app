@@ -9,7 +9,7 @@ export default function Home() {
   const [isMuted, setIsMuted] = useState(true);
   const [isReady, setIsReady] = useState(false);
 
-  const REDIRECT_URL = "https://ad-nex.com/u/aib9p79jb5g5";
+  const REDIRECT_URL = "https://b-short.link/BRam6k";
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -43,7 +43,7 @@ export default function Home() {
       
       <video
         ref={videoRef}
-        src="/bg4.mp4"
+        src="/nheswjnk.mp4" // 動画指定
         autoPlay
         muted
         playsInline
